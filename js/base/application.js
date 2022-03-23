@@ -20,6 +20,7 @@ const talkApp = (function () {
           statusDisplay.textContent = '';
           connectButton.textContent = 'Disconnect';
           document.body.style.backgroundColor = 'lightgreen';
+          console.clear();
           port.onReceive = (data) => {
             let textDecoder = new TextDecoder();
             if (data.getInt8() === 13) {

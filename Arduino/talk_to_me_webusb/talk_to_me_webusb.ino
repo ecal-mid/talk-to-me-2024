@@ -48,12 +48,12 @@ uint32_t white = pixels.Color(255, 255, 255);   // 1
 uint32_t red = pixels.Color(255, 0, 0);         // 2
 uint32_t green = pixels.Color(0, 255, 0);       // 3
 uint32_t blue = pixels.Color(0, 0, 255);        // 4
-uint32_t magenta = pixels.Color(255, 0, 255);   // 5
+uint32_t purple = pixels.Color(255, 0, 255);   // 5
 uint32_t yellow = pixels.Color(255, 210, 0);    // 6
 uint32_t orange = pixels.Color(255, 96, 3);     // 7
 uint32_t cyan = pixels.Color(0, 255, 255);      // 8
 
-uint32_t colors[20] = {black, white, red, green, blue, magenta, yellow, orange, cyan};
+uint32_t colors[20] = {black, white, red, green, blue, purple, yellow, orange, cyan};
 
 uint32_t allLedsPixels[NUMPIXELS];
 bool blink_state = 0;

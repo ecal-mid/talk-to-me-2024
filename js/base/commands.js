@@ -7,13 +7,26 @@ public functions must be exposed in the return function
 */
 
 let talkCommands = (function () {
+  const colorLeds = {
+    black: '00',
+    white: '01',
+    red: '02',
+    green: '03',
+    blue: '04',
+    purple: '05',
+    yellow: '06',
+    orange: '07',
+    cyan: '08',
+  };
+
   /* PRIVATE MEMBERS */
   function commandInterpretter(data) {
     const command = data.substring(0, 1);
     const val = data.substring(1);
+
     if (command == 'M') {
       // message
-      console.log('%cIN: Message: ' + val, baseConsoleStylesIN);
+      talkFancylogger.logMessage(val);
       //appendLine('receiver_lines', 'Message: ' + val);
     }
     if (command == 'B') {
@@ -27,7 +40,6 @@ let talkCommands = (function () {
   }
 
   function commandSender(data) {
-    console.log('%cOUT: ' + data, baseConsoleStylesOUT);
     talkApp.sendCommand(data);
   }
 
@@ -50,13 +62,19 @@ let talkCommands = (function () {
     //console.log('%cIN: Potentiometer: ' + val, baseConsoleStylesIN);
   }
 
-  function changeLedColor(led_index, led_color_code, led_blink = 0) {
-    commandSender('L' + led_index + led_color_code + led_blink);
+  function changeLedColor(led_index, led_color, led_effect = 0) {
+    talkFancylogger.logLed(led_index, led_color, led_effect);
+    const led_color_code = colorLeds[led_color];
+    commandSender('L' + led_index + led_color_code + led_effect);
   }
 
-  function changeAllLedsColor(led_color_code, led_blink = 0) {
+  function changeAllLedsColor(led_color, led_effect = 0) {
+    // send first a command to avoid missign packet
+    commandSender('L0000');
     for (let i = 0; i < 10; i++) {
-      talkCommands.commandSend('L' + i + led_color_code + led_blink);
+      talkFancylogger.logLed(i, led_color, led_effect);
+      const led_color_code = colorLeds[led_color];
+      talkCommands.commandSend('L' + i + led_color_code + led_effect);
     }
   }
 

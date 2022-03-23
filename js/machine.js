@@ -7,12 +7,33 @@ document.addEventListener('DOMContentLoaded', function (event) {
     startMachine();
     //}
   });
+
+  // ** Event Listener For all purpose buttons you can create more in the HTML file if needed //
+  // ALL PURPOSE BUTTON 1
+  const all_purpose_btn_1 = document.querySelector('#all_purpose_btn_1');
+  all_purpose_btn_1.innerText = 'Turn all leds off';
+  all_purpose_btn_1.addEventListener('click', function () {
+    // your action here
+    talkCommands.ledAllOff();
+  });
+  // ALL PURPOSE BUTTON 2
+  const all_purpose_btn_2 = document.querySelector('#all_purpose_btn_2');
+  all_purpose_btn_2.innerText = 'All leds purple and blinking';
+  all_purpose_btn_2.addEventListener('click', function () {
+    // your action here
+    talkCommands.ledAllColor('purple', 1);
+  });
+  // ALL PURPOSE BUTTON 3
+  const all_purpose_btn_3 = document.querySelector('#all_purpose_btn_3');
+  all_purpose_btn_3.innerText = 'No action yet';
+  all_purpose_btn_3.addEventListener('click', function () {
+    // your action here
+  });
 });
 
 // ** Event Listener for User Inputs **  //
 
 document.addEventListener('buttonPressed', function (event) {
-  console.log(event.detail.button);
   if (waiting_for_user_input) {
     dialogMachine(event.detail.button);
   } else {
@@ -58,10 +79,14 @@ function startMachine() {
 }
 
 function dialogMachine(btn = -1) {
+  if (!machine_started) {
+    talkFancylogger.logWarning('Machine is not started yet, press Start');
+    return;
+  }
   if (next_state != last_state) {
-    console.log(`entering State ${next_state}`);
+    talkFancylogger.logState(`entering State: ${next_state}`);
   } else {
-    console.log(`Staying in State ${next_state}`);
+    talkFancylogger.logState(`Staying in State: ${next_state}`);
   }
   last_state = next_state;
 
@@ -74,7 +99,7 @@ function dialogMachine(btn = -1) {
     case 'start':
       console.log('we are at the biginning, press button 1 to continue');
       talkVoice.speak('hello', 1);
-      talkCommands.ledColor(1, '05');
+      talkCommands.ledColor(1, 'blue');
       //talkSound.playSound(starWars, false);
       next_state = 'two';
       break;
@@ -86,7 +111,7 @@ function dialogMachine(btn = -1) {
         break;
       }
       console.log('second step');
-      talkCommands.ledAllColor('05');
+      talkCommands.ledAllColor('blue');
       talkSound.playSound(chime_short, true);
       next_state = 'three';
       break;
@@ -95,13 +120,13 @@ function dialogMachine(btn = -1) {
       console.log('last step, all what you do now will be ignored');
       talkSound.pauseSound();
       talkCommands.ledAllOff();
-      talkCommands.ledColor(1, '02');
-      waiting_for_user_input = false;
+      talkCommands.ledColor(1, 'red');
+      //waiting_for_user_input = false;
       next_state = 'deadend';
       break;
 
     case 'deadend':
-      talkCommands.changeAllLedsColor('05');
+      talkCommands.ledAllColor('purple', 1);
       console.log('pfff... you are pressing a button but i ignore it');
       button_press_counter++;
       if (button_press_counter > 2) {
@@ -134,7 +159,9 @@ function dialogMachine(btn = -1) {
       break;
 
     default:
-      console.error(`Sorry State: "${next_state}" has no case defined`);
+      talkFancylogger.logWarning(
+        `Sorry but State: "${next_state}" has no case defined`
+      );
   }
 }
 
@@ -143,7 +170,7 @@ function userInputError() {
 }
 
 function goToNextState() {
-  ProcessEvent();
+  dialogMachine();
 }
 
 function getRandomNextState(statesArray) {
