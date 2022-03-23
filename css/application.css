@@ -1,0 +1,128 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: normal;
+  background-color: lightgray;
+}
+
+.main-content {
+  width: 500px;
+  margin: auto;
+  font-size: 14px;
+}
+
+.connect-container {
+  margin: 20px 0;
+  padding: 10px;
+  border: 4px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.connect-container {
+  margin: 20px 0;
+  padding: 10px;
+  border: 4px solid rgb(0, 0, 0);
+}
+
+.container {
+  display: flex;
+}
+
+.container-title {
+  font-weight: 600;
+  padding-bottom: 5px;
+}
+
+.button.black {
+  border: none;
+  color: white;
+  background: #3b3b3b;
+  padding: 8px 16px;
+  outline: none;
+  border-radius: 5px;
+}
+
+.button.black:hover {
+  background: #5c7a40;
+}
+
+.button.black:active {
+  background: #080808;
+}
+
+.testbutton {
+  margin: 3px;
+  width: 35px;
+  height: 35px;
+  border-radius: 18px;
+}
+
+.testbutton:hover {
+  box-shadow: inset 0 10px 15px 0 #ececec;
+}
+
+.testbutton:active {
+  box-shadow: inset 0 10px 15px 0 #bbbbbb;
+}
+
+.testbutton.red {
+  background: red;
+}
+
+.testbutton.green {
+  background: green;
+}
+
+.testbutton.blue {
+  background: blue;
+  color: white;
+}
+
+.testbutton.yellow {
+  background: yellow;
+}
+
+.testbutton.black {
+  background: black;
+  color: white;
+}
+
+.testbutton.white {
+  background: white;
+}
+
+label {
+  color: black;
+  font-size: 1em;
+}
+
+textarea {
+  margin-top: 10px;
+  width: 300px;
+  height: 100px;
+  padding: 6px 6px;
+  box-sizing: border-box;
+  border: 4px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+}
+
+select {
+  margin-top: 10px;
+  width: 300px;
+  padding: 6px 6px;
+  border: 4px solid #ccc;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+}
+
+input[type='number'] {
+  margin-top: 10px;
+  width: 50px;
+  padding: 6px 6px;
+  border: 4px solid #ccc;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+}

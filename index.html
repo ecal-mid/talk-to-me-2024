@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Talk To Me - Controller</title>
+    <!-- Base scripts-->
+    <script src="js/base/serial.js"></script>
+    <script src="js/base/fancylogger.js"></script>
+    <script src="js/base/application.js"></script>
+    <script src="js/base/commands.js"></script>
+    <script src="js/base/texttospeech.js"></script>
+    <script src="js/base/soundplayer.js"></script>
+    <script src="js/base/consolestyles.js"></script>
+    <!-- Your script-->
+    <script src="js/machine.js"></script>
+
+    <link rel="stylesheet" href="css/application.css" />
+  </head>
+  <body>
+    <div class="main-content">
+      <h1>Talk To Me - Controller</h1>
+      <div class="connect-container">
+        <div class="container-title">Pi Pico Board</div>
+        <button id="connect" class="button black">Connect</button>
+        <span id="status"></span>
+      </div>
+      <div class="connect-container">
+        <div class="container-title">Your program</div>
+        <button id="restartbutton" class="button black">Start Machine</button>
+      </div>
+      <div class="connect-container">
+        <div class="container-title">Simulate Buttons</div>
+        <button id="btn0" class="testbutton white">0</button>
+        <button id="btn1" class="testbutton black">1</button>
+        <button id="btn2" class="testbutton black">2</button>
+        <button id="btn3" class="testbutton yellow">3</button>
+        <button id="btn4" class="testbutton green">4</button>
+        <button id="btn5" class="testbutton red">5</button>
+        <button id="btn6" class="testbutton blue">6</button>
+        <button id="btn7" class="testbutton black">7</button>
+        <button id="btn8" class="testbutton black">8</button>
+        <button id="btn9" class="testbutton black">9</button>
+      </div>
+      <div class="connect-container">
+        <div class="container-title">Test LEDS</div>
+        <button id="btnred" class="button black">First Red</button>
+        <button id="btngreen" class="button black">All Green and Blink</button>
+        <button id="btnamagenta" class="button black">Last Magenta</button>
+        <button id="btnalloff" class="button black">All off</button>
+      </div>
+    </div>
+  </body>
+</html>

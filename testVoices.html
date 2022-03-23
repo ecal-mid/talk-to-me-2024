@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Talk To Me - Voice Tester</title>
+    <script src="js/base/fancylogger.js"></script>
+    <script src="js/base/texttospeech.js"></script>
+    <script src="js/base/testvoices.js"></script>
+    <script src="js/base/consolestyles.js"></script>
+    <link rel="stylesheet" href="css/application.css" />
+  </head>
+  <body>
+    <div class="main-content">
+      <h1>Talk To Me - Voice Tester</h1>
+
+       <div class="connect-container">
+        <div class="container-title">Voice Settings</div>
+          <label for="texttospeak">List all available voices</label>
+          <input type="checkbox" id="allvoices"><br/><br/>
+          <select id="voiceSelect"></select><br/>
+           <textarea id="texttospeak" cols="60">Talk to me, tell me what you want.</textarea><br/>
+      
+          <label for="pitch">Pitch (0-2)</label>
+          <input type="number" step=0.1 min="0" max="2" value="1" id="pitch"></input><br/>
+          <label for="rate">Rate (0.1-10)</label>
+          <input type="number" step=0.1 min="0.1" max="10" value="0.8" id="rate"></input><br/><br/>
+      </div>
+      <button id="speakit" class="button black">Speak it</button><br/>
+    </div>
+  </body>
+</html>
