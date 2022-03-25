@@ -40,7 +40,9 @@ let talkCommands = (function () {
   }
 
   function commandSender(data) {
-    talkApp.sendCommand(data);
+    if (talkApp.boardConnected == 1) {
+      talkApp.sendCommand(data);
+    }
   }
 
   function dispatchButton(val) {
