@@ -70,6 +70,7 @@ const starWars = new Audio('audio/StarWars3.wav');
 
 // ** Start the machine **  //
 function startMachine() {
+  console.clear();
   waiting_for_user_input = true;
   machine_started = true;
   next_state = 'initialisation';
@@ -98,14 +99,35 @@ function dialogMachine(btn = -1) {
     case 'initialisation':
       console.log('Machine is initialised and ready');
       talkCommands.ledAllOff();
-      next_state = 'start';
+      next_state = 'check-pattern';
       break;
-    case 'start':
-      console.log('we are at the biginning, press button 1 to continue');
-      talkVoice.speak('hello', 1);
-      talkCommands.ledColor(1, 'blue');
-      //talkSound.playSound(starWars, false);
-      next_state = 'two';
+
+    case 'check-pattern':
+      if (!inputPatternMatcher.isStarted) {
+        console.log(
+          'we are at the biginning, press button 1 and 2 and 3 to continue'
+        );
+        inputPatternMatcher.start(
+          [1, 2, 3],
+          next_state,
+          'input-success',
+          'input-error'
+        );
+      } else {
+        next_state = inputPatternMatcher.check(btn);
+        if (next_state != last_state) {
+          goToNextState();
+        } else {
+          console.log('doing good, continue...');
+        }
+      }
+      break;
+
+    case 'input-error':
+      console.log('so wrong!');
+      break;
+    case 'input-success':
+      console.log('congrats, it is a success!');
       break;
 
     case 'two':
@@ -182,3 +204,42 @@ function getRandomNextState(statesArray) {
   _next_state = statesArray[rand_index];
   return _next_state;
 }
+
+class PatternMatcher {
+  constructor() {
+    this.isStarted = false;
+  }
+
+  start(pattern, stateActual, stateForSuccess, stateForError) {
+    this.isStarted = true;
+    this.index_to_check = 0;
+    this.pattern = pattern;
+    this.stateActual = stateActual;
+    this.stateForSuccess = stateForSuccess;
+    this.stateForError = stateForError;
+  }
+
+  check(userInput) {
+    let nextState;
+    if (this.pattern[this.index_to_check] == userInput) {
+      // matching
+      if (this.index_to_check + 1 == this.pattern.length) {
+        // success
+        nextState = this.stateForSuccess;
+      } else {
+        // doing good
+        this.index_to_check++;
+        nextState = this.stateActual;
+      }
+    } else {
+      // wrong
+      console.log('pattern error');
+      this.isStarted = false;
+      nextState = this.stateForError;
+    }
+    if (nextState != this.stateActual) this.isStarted = false;
+    return nextState;
+  }
+}
+
+let inputPatternMatcher = new PatternMatcher([], '', '', '');
