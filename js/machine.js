@@ -79,6 +79,10 @@ function startMachine() {
 }
 
 function dialogMachine(btn = -1) {
+  if (!waiting_for_user_input) {
+    userInputError();
+    return;
+  }
   if (!machine_started) {
     talkFancylogger.logWarning('Machine is not started yet, press Start');
     return;

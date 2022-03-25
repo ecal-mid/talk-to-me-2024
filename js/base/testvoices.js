@@ -61,9 +61,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     talkVoice.speak(inputTxt.value, voiceIndex, pitch.value, rate.value);
 
-    console.log(
-      `%ctalkVoice.speak('your text', ${voiceIndex}, ${pitch.value}, ${rate.value});`,
-      baseConsoleStylesCODE
+    talkFancylogger.logCode(
+      `talkVoice.speak('your text', ${voiceIndex}, ${pitch.value}, ${rate.value})`
     );
   }
 });
