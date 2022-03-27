@@ -9,7 +9,6 @@ public functions must be exposed in the return function
 const talkApp = (function () {
   ('use strict');
   let port;
-  let board_connected = 0;
 
   document.addEventListener('DOMContentLoaded', (event) => {
     let connectButton = document.querySelector('#connect');
@@ -21,7 +20,7 @@ const talkApp = (function () {
           statusDisplay.textContent = '';
           connectButton.textContent = 'Disconnect';
           document.body.style.backgroundColor = 'lightgreen';
-          board_connected = 1;
+          serial.is_connected = 1;
           console.clear();
           port.onReceive = (data) => {
             let textDecoder = new TextDecoder();
@@ -35,7 +34,7 @@ const talkApp = (function () {
           port.onReceiveError = (error) => {
             console.error(error);
             port.disconnect();
-            board_connected = 0;
+            serial.is_connected = 0;
             connectButton.textContent = 'Connect';
             statusDisplay.textContent = error;
             port = null;
@@ -55,7 +54,7 @@ const talkApp = (function () {
         statusDisplay.textContent = '';
         port = null;
         document.body.style.backgroundColor = 'lightgray';
-        board_connected = 0;
+        serial.is_connected = 0;
       } else {
         serial
           .requestPort()
@@ -96,6 +95,5 @@ const talkApp = (function () {
   /* PUBLIC MEMBERS */
   return {
     sendCommand: sendCommand,
-    boardConnected: board_connected,
   };
 })();

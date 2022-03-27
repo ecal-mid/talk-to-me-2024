@@ -50,7 +50,7 @@ const talkFancylogger = (function () {
   ].join(';');
 
   const LOGSTYLE_EMOJI = ['font-size: 1.5em;', 'padding: 2px 4px'].join(';');
-
+  //https://www.w3schools.com/charsets/ref_emoji.asp
   const emo_btn = String.fromCodePoint(0x1f518);
   const emo_message = String.fromCodePoint(0x1f4ac);
   const emo_sound = String.fromCodePoint(0x1f3b5);
@@ -58,6 +58,7 @@ const talkFancylogger = (function () {
   const emo_led = String.fromCodePoint(0x1f6a5);
   const emo_warning = String.fromCodePoint(0x1f590);
   const emo_state = String.fromCodePoint(0x23ec);
+  const emo_code = String.fromCodePoint(0x1f4c4);
 
   function printLogMessage(_msg) {
     console.log(`%c${emo_message} ${_msg}`, LOGSTYLE_IN);
@@ -72,7 +73,7 @@ const talkFancylogger = (function () {
   }
 
   function printLogCode(_msg) {
-    console.log(`%c${emo_btn} ${_msg}`, LOGSTYLE_CODE);
+    console.log(`%c${emo_code} ${_msg}`, LOGSTYLE_CODE);
   }
 
   function printLogSound(_msg) {

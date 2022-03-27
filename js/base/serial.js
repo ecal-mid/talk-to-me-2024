@@ -2,6 +2,7 @@ var serial = {};
 
 (function () {
   'use strict';
+  serial.is_connected = 0;
 
   serial.getPorts = function () {
     return navigator.usb.getDevices().then((devices) => {

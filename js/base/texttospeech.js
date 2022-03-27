@@ -25,9 +25,7 @@ let talkVoice = (function () {
     synth.speak(utterThis);
 
     utterThis.addEventListener('end', function (event) {
-      console.log(
-        'speech ended' // + event.elapsedTime +  ' seconds.'
-      );
+      console.log('speech ended');
     });
   }
 

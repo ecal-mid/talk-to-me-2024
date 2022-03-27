@@ -4,6 +4,21 @@ body {
   background-color: lightgray;
 }
 
+a:link {
+  color: black;
+  line-height: 2em;
+  font-size: 24px;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:visited {
+  color: black;
+}
+
 .main-content {
   width: 500px;
   margin: auto;
@@ -34,6 +49,7 @@ body {
 }
 
 .button.black {
+  margin: 3px;
   border: none;
   color: white;
   background: #3b3b3b;

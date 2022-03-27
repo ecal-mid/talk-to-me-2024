@@ -13,10 +13,12 @@ let talkCommands = (function () {
     red: '02',
     green: '03',
     blue: '04',
-    purple: '05',
+    magenta: '05',
     yellow: '06',
-    orange: '07',
-    cyan: '08',
+    cyan: '07',
+    orange: '08',
+    purple: '09',
+    pink: '10',
   };
 
   /* PRIVATE MEMBERS */
@@ -40,7 +42,7 @@ let talkCommands = (function () {
   }
 
   function commandSender(data) {
-    if (talkApp.boardConnected == 1) {
+    if (serial.is_connected == 1) {
       talkApp.sendCommand(data);
     }
   }

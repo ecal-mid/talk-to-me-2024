@@ -27,7 +27,7 @@ unsigned long currentMillis;
 // Buttons & Potetiemeter
 int led_pin = LED_BUILTIN;
 int nr_of_pins = 10;
-int btn_pins[] =        {15, 14, 0, 0, 0, 0, 0, 0, 0, 0};
+int btn_pins[] =        {15, 14, 13, 12, 11, 16, 17, 18, 19, 20};
 int btn_states[] =      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int last_btn_states[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -48,12 +48,15 @@ uint32_t white = pixels.Color(255, 255, 255);   // 1
 uint32_t red = pixels.Color(255, 0, 0);         // 2
 uint32_t green = pixels.Color(0, 255, 0);       // 3
 uint32_t blue = pixels.Color(0, 0, 255);        // 4
-uint32_t purple = pixels.Color(255, 0, 255);   // 5
+uint32_t magenta = pixels.Color(255, 0, 255);   // 5
 uint32_t yellow = pixels.Color(255, 210, 0);    // 6
-uint32_t orange = pixels.Color(255, 96, 3);     // 7
-uint32_t cyan = pixels.Color(0, 255, 255);      // 8
+uint32_t cyan = pixels.Color(0, 255, 255);      // 7
+uint32_t orange = pixels.Color(255, 96, 3);     // 8
+uint32_t purple = pixels.Color(128, 0, 255);    // 9
+uint32_t pink = pixels.Color(255, 0, 128);      // 10
 
-uint32_t colors[20] = {black, white, red, green, blue, purple, yellow, orange, cyan};
+
+uint32_t colors[20] = {black, white, red, green, blue, magenta, yellow, cyan, orange, violet, rose, turquoise};
 
 uint32_t allLedsPixels[NUMPIXELS];
 bool blink_state = 0;
@@ -68,7 +71,7 @@ void setup()
   // Manual begin() is required on core without built-in support for TinyUSB such as mbed rp2040
   TinyUSB_Device_Init(0);
 #endif
-  Serial.begin(115200);
+
 
   for (int i = 0; i < nr_of_pins; i++) {
     if (btn_pins[i] != 0) {
@@ -87,8 +90,10 @@ void setup()
 
   // wait until device mounted
   while ( !TinyUSBDevice.mounted() ) delay(1);
-
-
+  Serial.begin(115200);
+  delay(20);
+  Serial.println("pico started");
+  // Neopixels INIT
   pixels.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
   initAllLedsPixels();
 }
@@ -121,6 +126,7 @@ void setLedPixel(String command) {
   pixels.setPixelColor(led_index, colors[color_code]);
   allLedsPixels[led_index] = colors[color_code];
   ledMustBlink[led_index] = ledMustPulse[led_index] = 0;
+
   if (led_effect == 1) ledMustBlink[led_index] = 1;
   if (led_effect == 2) ledMustPulse[led_index] = 1;
 
@@ -144,7 +150,7 @@ void ledAnimationBlink() {
   }
 }
 
-void ledAnimationPulse() {
+/*void ledAnimationPulse() {
   float in, out;
   int time_ref = currentMillis % 2000;
   in = map(time_ref, 0, 2000, 0, TWO_PI * 100);
@@ -156,14 +162,47 @@ void ledAnimationPulse() {
     }
   }
   pixels.show();
+  }*/
+
+void ledAnimationPulse() {
+  float in, out;
+  int time_ref = currentMillis % 2000;
+  in = map(time_ref, 0, 2000, 0, TWO_PI * 100);
+  out = sin(in / 100) * 127.5 + 127.5;
+
+  for (int i = 0; i < NUMPIXELS; i++) {
+    if (ledMustPulse[i] == 1) {
+      //map(value, fromLow, fromHigh, toLow, toHigh)
+      uint8_t outR = map(out, 0, 255 , 0, splitColor(allLedsPixels[i], 'r'));
+      uint8_t outG = map(out, 0, 255 , 0, splitColor(allLedsPixels[i], 'g'));
+      uint8_t outB =  map(out, 0, 255 , 0, splitColor(allLedsPixels[i], 'b'));
+
+      pixels.setPixelColor(i, pixels.Color(outR, outG, outB)); // saved set color
+    }
+  }
+  pixels.show();
 }
 
 void initAllLedsPixels() {
   for (int i = 0; i < NUMPIXELS; i++) {
     allLedsPixels[i] = pixels.Color(0, 0, 0);
     pixels.setPixelColor(i, allLedsPixels[i]);
+    ledMustBlink[i] = ledMustPulse[i] = 0;
   }
   pixels.show();
+}
+
+/**
+   splitColor() - Receive a uint32_t value, and spread into bits.
+*/
+uint8_t splitColor ( uint32_t c, char value )
+{
+  switch ( value ) {
+    case 'r': return (uint8_t)(c >> 16);
+    case 'g': return (uint8_t)(c >>  8);
+    case 'b': return (uint8_t)(c >>  0);
+    default:  return 0;
+  }
 }
 
 void loop()

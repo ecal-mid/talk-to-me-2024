@@ -25,9 +25,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
   });
   // ALL PURPOSE BUTTON 3
   const all_purpose_btn_3 = document.querySelector('#all_purpose_btn_3');
-  all_purpose_btn_3.innerText = 'No action yet';
+  all_purpose_btn_3.innerText = 'All leds yellow and pulsing';
   all_purpose_btn_3.addEventListener('click', function () {
-    // your action here
+    talkCommands.ledAllColor('yellow', 2);
   });
 });
 
