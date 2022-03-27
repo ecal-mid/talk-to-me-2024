@@ -66,7 +66,6 @@ let button_press_counter = 0;
 // ** Prepare audio Objects **  //
 const chime_short = new Audio('audio/bell_short.wav');
 const chime = new Audio('audio/bell.wav');
-const starWars = new Audio('audio/StarWars3.wav');
 
 // ** Start the machine **  //
 function startMachine() {
