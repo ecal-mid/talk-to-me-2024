@@ -4,12 +4,5 @@ _ressources semaine bloc 1CVmid / ECAL M&ID Mars 2022_
 
 _Alain Bellet + Paul Lëon_
 
-## Utilisation Board Pi Pico
-
-1. ouvrir Chrome
-2. brancher la board
-3. ouvrir cette [page](https://ecal-mid.ch/talktome/app.html){:target="_blank"}
-
-
-
+https://ecal-mid.ch/talktome/
 
