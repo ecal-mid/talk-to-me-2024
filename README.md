@@ -8,7 +8,7 @@ _Alain Bellet + Paul Lëon_
 
 1. ouvrir Chrome
 2. brancher la board
-3. ouvrir page [https://ecal-mid.ch/talktome/]{:target="_blank"}
+3. ouvrir cette [page](https://ecal-mid.ch/talktome/app.html){:target="_blank"}
 
 
 
