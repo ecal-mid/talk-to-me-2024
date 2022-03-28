@@ -150,19 +150,6 @@ void ledAnimationBlink() {
   }
 }
 
-/*void ledAnimationPulse() {
-  float in, out;
-  int time_ref = currentMillis % 2000;
-  in = map(time_ref, 0, 2000, 0, TWO_PI * 100);
-  out = sin(in / 100) * 127.5 + 127.5;
-
-  for (int i = 0; i < NUMPIXELS; i++) {
-    if (ledMustPulse[i] == 1) {
-      pixels.setPixelColor(i, pixels.Color(0, out, 0)); // saved set color
-    }
-  }
-  pixels.show();
-  }*/
 
 void ledAnimationPulse() {
   float in, out;

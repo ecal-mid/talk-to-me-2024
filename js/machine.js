@@ -95,7 +95,7 @@ function dialogMachine(btn = -1) {
   switch (next_state) {
     case 'initialisation':
       talkFancylogger.logMessage('Machine is initialised and ready');
-      talkFancylogger.logMessage('Press any button ton continue');
+      talkFancylogger.logMessage('Press any button to continue');
       talkCommands.ledAllOff();
       next_state = 'welcome';
       break;
@@ -121,7 +121,8 @@ function dialogMachine(btn = -1) {
 
     case 'choose-blue':
       talkFancylogger.logMessage('Blue was a good choice');
-      next_state = 'choose-blue';
+      talkFancylogger.logMessage('Press any button ton continue');
+      next_state = 'can-speak';
       break;
 
     case 'choose-yellow':
@@ -129,6 +130,35 @@ function dialogMachine(btn = -1) {
       talkFancylogger.logMessage('Press blue to continue');
       next_state = 'choose-color';
       goToNextState();
+      break;
+
+    case 'can-speak':
+      talkVoice.speak('I can speak, i can count. Press a button.', 1, 1, 0.8);
+      next_state = 'count-press';
+      break;
+
+    case 'count-press':
+      button_press_counter++;
+      talkVoice.speak(
+        'you pressed ' + button_press_counter + ' time',
+        1,
+        1,
+        0.8
+      );
+
+      if (button_press_counter > 5) {
+        next_state = 'toomuch';
+        goToNextState();
+      }
+      break;
+
+    case 'toomuch':
+      talkVoice.speak(
+        'You are pressing too much! I Feel very pressed',
+        1,
+        1,
+        0.8
+      );
       break;
 
     default:
