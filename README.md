@@ -8,7 +8,7 @@ https://ecal-mid.ch/talktome/
 
 ## Exemples de code
 
-Tout se passe dans machine.js
+Tout se passe dans **machine.js**
 
 ### Speech
 tester les voix et réglages ici
@@ -25,9 +25,10 @@ talkVoice.speak('hello', 0, 1, 0.8)
 ```
 
 ### Son
-**lancer un son**  
+**lancer le son**  
 *talkSound.playSound(objet_son, boucle)*  
 objet_son:objet créé par new Audio(), boucle: true ou false   
+
 **stopper le son**  
 *talkSound.pauseSound()*
 
