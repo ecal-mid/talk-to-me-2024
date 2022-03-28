@@ -41,6 +41,10 @@ document.addEventListener('buttonPressed', function (event) {
   }
 });
 
+document.addEventListener('potentimeterChange', function (event) {
+  console.log(event.detail.potentiometer);
+});
+
 // ** Event Listener for Speech **  //
 
 document.addEventListener('speechEnded', function (event) {
@@ -70,12 +74,11 @@ function startMachine() {
   machine_started = true;
   next_state = 'initialisation';
   button_press_counter = 0;
-  talkFancylogger.logMessage('Machine satrted');
+  console.log('Machine started');
   dialogMachine(); // start the machine with first state
 }
 
 function dialogMachine(btn = -1) {
-  // *** first test before continuing to rules
   if (!waiting_for_user_input) {
     userInputError();
     return;
@@ -91,42 +94,93 @@ function dialogMachine(btn = -1) {
   }
   last_state = next_state;
 
-  // *** States and Rules
   switch (next_state) {
     case 'initialisation':
-      talkFancylogger.logMessage('Machine is initialised and ready');
-      talkFancylogger.logMessage('Press any button ton continue');
+      console.log('Machine is initialised and ready');
       talkCommands.ledAllOff();
-      next_state = 'welcome';
-      break;
-    case 'welcome':
-      talkFancylogger.logMessage(
-        'Welcome, you got two buttons, use one of them'
-      );
-      next_state = 'choose-color';
+      next_state = 'check-pattern';
       break;
 
-    case 'choose-color':
-      if (btn == 0) {
-        // blue
-        next_state = 'choose-blue';
+    case 'check-pattern':
+      if (!inputPatternMatcher.isStarted) {
+        console.log(
+          'we are at the biginning, press button 1 and 2 and 3 to continue'
+        );
+        inputPatternMatcher.start(
+          [1, 2, 3],
+          next_state,
+          'input-success',
+          'input-error'
+        );
+      } else {
+        next_state = inputPatternMatcher.check(btn);
+        if (next_state != last_state) {
+          goToNextState();
+        } else {
+          console.log('doing good, continue...');
+        }
+      }
+      break;
+
+    case 'input-error':
+      console.log('so wrong!');
+      break;
+    case 'input-success':
+      console.log('congrats, it is a success!');
+      break;
+
+    case 'two':
+      if (btn != 1) {
+        userInputError();
+        console.log('wrong button');
+        break;
+      }
+      console.log('second step');
+      talkCommands.ledAllColor('blue');
+      talkSound.playSound(chime_short, true);
+      next_state = 'three';
+      break;
+
+    case 'three':
+      console.log('last step, all what you do now will be ignored');
+      talkSound.pauseSound();
+      talkCommands.ledAllOff();
+      talkCommands.ledColor(1, 'red');
+      //waiting_for_user_input = false;
+      next_state = 'deadend';
+      break;
+
+    case 'deadend':
+      talkCommands.ledAllColor('purple', 1);
+      console.log('pfff... you are pressing a button but i ignore it');
+      button_press_counter++;
+      if (button_press_counter > 2) {
+        next_state = 'notamused';
+      }
+      break;
+
+    case 'notamused':
+      button_press_counter++;
+      if (button_press_counter < 5) {
+        console.log('please stop pressing my buttons');
+        break;
+      } else if (button_press_counter == 5) {
+        console.log('what did i say?');
+        break;
+      } else {
+        next_state = getRandomNextState(['rand1', 'rand2']);
         goToNextState();
       }
-      if (btn == 1) {
-        // yellow
-        next_state = 'choose-yellow';
-        goToNextState();
-      }
       break;
 
-    case 'choose-blue':
-      talkFancylogger.logMessage('Blue was a good choice');
-      next_state = 'choose-blue';
+    case 'rand1':
+      console.log('yoooo!!!!');
+      next_state = 'notamused';
       break;
 
-    case 'choose-yellow':
-      talkFancylogger.logMessage('Blue was a good choice');
-      next_state = 'choose-blue';
+    case 'rand2':
+      console.log('nooooo!!!!');
+      next_state = 'notamused';
       break;
 
     default:

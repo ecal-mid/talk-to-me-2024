@@ -19,7 +19,7 @@
 Adafruit_USBD_WebUSB usb_web;
 
 // Landing Page: scheme (0: http, 1: https), url
-WEBUSB_URL_DEF(landingPage, 1 /*https*/, "ecal-mid.ch/talktome/");
+WEBUSB_URL_DEF(landingPage, 1 /*https*/, "ecal-mid.ch/talktome/app.html");
 
 unsigned long previousMillis;
 unsigned long currentMillis;

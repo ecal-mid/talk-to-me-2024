@@ -95,38 +95,12 @@ function dialogMachine(btn = -1) {
   switch (next_state) {
     case 'initialisation':
       talkFancylogger.logMessage('Machine is initialised and ready');
-      talkFancylogger.logMessage('Press any button ton continue');
+      talkFancylogger.logMessage('press any button ton continue');
       talkCommands.ledAllOff();
       next_state = 'welcome';
       break;
     case 'welcome':
-      talkFancylogger.logMessage(
-        'Welcome, you got two buttons, use one of them'
-      );
-      next_state = 'choose-color';
-      break;
-
-    case 'choose-color':
-      if (btn == 0) {
-        // blue
-        next_state = 'choose-blue';
-        goToNextState();
-      }
-      if (btn == 1) {
-        // yellow
-        next_state = 'choose-yellow';
-        goToNextState();
-      }
-      break;
-
-    case 'choose-blue':
-      talkFancylogger.logMessage('Blue was a good choice');
-      next_state = 'choose-blue';
-      break;
-
-    case 'choose-yellow':
-      talkFancylogger.logMessage('Blue was a good choice');
-      next_state = 'choose-blue';
+      talkFancylogger.logMessage('Welcome');
       break;
 
     default:
