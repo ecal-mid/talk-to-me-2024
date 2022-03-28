@@ -35,7 +35,15 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 document.addEventListener('buttonPressed', function (event) {
   if (waiting_for_user_input) {
-    dialogMachine(event.detail.button);
+    dialogMachine(event.detail.button, 0);
+  } else {
+    userInputError();
+  }
+});
+
+document.addEventListener('buttonReleased', function (event) {
+  if (waiting_for_user_input) {
+    dialogMachine(event.detail.button, 1);
   } else {
     userInputError();
   }
@@ -70,11 +78,11 @@ function startMachine() {
   machine_started = true;
   next_state = 'initialisation';
   button_press_counter = 0;
-  talkFancylogger.logMessage('Machine satrted');
+  talkFancylogger.logMessage('Machine started');
   dialogMachine(); // start the machine with first state
 }
 
-function dialogMachine(btn = -1) {
+function dialogMachine(btn = -1, btn_state = 0) {
   // *** first test before continuing to rules
   if (!waiting_for_user_input) {
     userInputError();
@@ -99,6 +107,7 @@ function dialogMachine(btn = -1) {
       talkCommands.ledAllOff();
       next_state = 'welcome';
       break;
+
     case 'welcome':
       talkFancylogger.logMessage(
         'Welcome, you got two buttons, use one of them'
@@ -121,7 +130,7 @@ function dialogMachine(btn = -1) {
 
     case 'choose-blue':
       talkFancylogger.logMessage('Blue was a good choice');
-      talkFancylogger.logMessage('Press any button ton continue');
+      talkFancylogger.logMessage('Press any button to continue');
       next_state = 'can-speak';
       break;
 

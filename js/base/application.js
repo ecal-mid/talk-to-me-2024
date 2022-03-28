@@ -81,10 +81,15 @@ const talkApp = (function () {
 
     let testButtons = document.querySelectorAll('.testbutton');
     for (let i = 0; i < testButtons.length; i++) {
-      testButtons[i].addEventListener('click', function (e) {
+      testButtons[i].addEventListener('mousedown', function (e) {
         const t = e.target;
         const btn = t.id.substring(3, 4);
-        talkCommands.pressButton(btn);
+        talkCommands.pressButton(btn, 'pressed');
+      });
+      testButtons[i].addEventListener('mouseup', function (e) {
+        const t = e.target;
+        const btn = t.id.substring(3, 4);
+        talkCommands.pressButton(btn, 'released');
       });
     }
   });

@@ -233,6 +233,9 @@ void loop()
       if (btn_states[i] == 0) {
         usb_web.println("B" + String(i));
       }
+      if (btn_states[i] == 1) {
+        usb_web.println("H" + String(i));
+      }
       last_btn_states[i] = btn_states[i];
       delay(50);
     }

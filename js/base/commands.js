@@ -32,8 +32,13 @@ let talkCommands = (function () {
       //appendLine('receiver_lines', 'Message: ' + val);
     }
     if (command == 'B') {
-      // Button
-      dispatchButton(val);
+      // Button pressed
+      dispatchButton(val, 'pressed');
+      //appendLine('receiver_lines', 'Button: ' + val);
+    }
+    if (command == 'H') {
+      // Button released
+      dispatchButton(val, 'released');
       //appendLine('receiver_lines', 'Button: ' + val);
     }
     if (command == 'P') {
@@ -47,13 +52,22 @@ let talkCommands = (function () {
     }
   }
 
-  function dispatchButton(val) {
-    document.dispatchEvent(
-      new CustomEvent('buttonPressed', {
-        detail: { button: val },
-      })
-    );
-    talkFancylogger.logButton(val);
+  function dispatchButton(val, btn_state) {
+    if (btn_state == 'pressed') {
+      document.dispatchEvent(
+        new CustomEvent('buttonPressed', {
+          detail: { button: val },
+        })
+      );
+    }
+    if (btn_state == 'released') {
+      document.dispatchEvent(
+        new CustomEvent('buttonReleased', {
+          detail: { button: val },
+        })
+      );
+    }
+    talkFancylogger.logButton(val + ' ' + btn_state);
   }
 
   function dispatchPotentiometer(val) {
