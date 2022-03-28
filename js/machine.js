@@ -125,8 +125,10 @@ function dialogMachine(btn = -1) {
       break;
 
     case 'choose-yellow':
-      talkFancylogger.logMessage('Blue was a good choice');
-      next_state = 'choose-blue';
+      talkFancylogger.logMessage('Yellow was a bad choice');
+      talkFancylogger.logMessage('Press blue to continue');
+      next_state = 'choose-color';
+      goToNextState();
       break;
 
     default:

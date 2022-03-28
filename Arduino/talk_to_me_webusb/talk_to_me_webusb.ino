@@ -56,7 +56,7 @@ uint32_t purple = pixels.Color(128, 0, 255);    // 9
 uint32_t pink = pixels.Color(255, 0, 128);      // 10
 
 
-uint32_t colors[20] = {black, white, red, green, blue, magenta, yellow, cyan, orange, violet, rose, turquoise};
+uint32_t colors[20] = {black, white, red, green, blue, magenta, yellow, cyan, orange, purple, pink};
 
 uint32_t allLedsPixels[NUMPIXELS];
 bool blink_state = 0;
