@@ -42,18 +42,19 @@ talkSound.pauseSound();
 ```
 
 ### Leds
+**couleurs:**  black, white, red, green, blue, magenta, yellow, cyan:, orange:, purple:, pink  
 
 **Allumer une led**
-talkCommands.ledColor(index, couleur, effet);
+*talkCommands.ledColor(index, couleur, effet)*  
 index: 0-10, couleur: nom de la couleur (voir liste), effet 0:aucun ; 1:blink; 2:pulse
 
-**Allumer toutes les led**
-talkCommands.ledColor(index, couleur, effet);
-index: 0-10, couleur: nom de la couleur (voir liste), effet 0:aucun ; 1:blink; 2:pulse
-**Éteindre une led**
+**Allumer toutes les led**  
+*talkCommands.ledAllColor(couleur, effet)*  
+couleur: nom de la couleur (voir liste), effet 0:aucun ; 1:blink; 2:pulse  
+
 **Éteindre toutes les led**
+*talkCommands.ledAllOff()*  
 
-**couleurs:**  black, white, red, green, blue, magenta, yellow, cyan:, orange:, purple:, pink
 
 Example
 ```JavaScript
