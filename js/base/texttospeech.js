@@ -10,7 +10,7 @@ let talkVoice = (function () {
   'use strict';
   let synth = window.speechSynthesis;
   let voices = [];
-
+  let utterThis;
   /* PRIVATE MEMBERS */
 
   function speakText(_text, _voice = 0, _pitch = 1, _rate = 1) {
@@ -18,15 +18,22 @@ let talkVoice = (function () {
     console.log('Voice index: ' + _voice);
     console.log('Pitch: ' + _pitch);
     console.log('Rate: ' + _rate);
-    let utterThis = new SpeechSynthesisUtterance(_text);
+    utterThis = new SpeechSynthesisUtterance(_text);
     utterThis.voice = voices[_voice];
     utterThis.pitch = _pitch;
     utterThis.rate = _rate;
     synth.speak(utterThis);
 
     utterThis.addEventListener('end', function (event) {
-      console.log('speech ended');
+      document.dispatchEvent(
+        new CustomEvent('speechEnded', {
+          detail: {},
+        })
+      );
     });
+  }
+  function cancelSpeak() {
+    synth.cancel();
   }
 
   function initSpeech() {
@@ -69,5 +76,6 @@ let talkVoice = (function () {
   return {
     speak: speakText,
     getVoicesList: getVoicesList,
+    cancelSpeak: cancelSpeak,
   };
 })();

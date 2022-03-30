@@ -97,6 +97,7 @@ let talkCommands = (function () {
   }
 
   function allLedsOff() {
+    talkFancylogger.logLed('all', 'black', 0);
     commandSender('Lx000');
   }
   /* PUBLIC MEMBERS */
