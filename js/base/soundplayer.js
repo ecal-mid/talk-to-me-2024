@@ -26,7 +26,11 @@ let talkSound = (function () {
     soundPlaying.play();
 
     soundPlaying.onended = function () {
-      console.log('audio ended');
+      document.dispatchEvent(
+        new CustomEvent('soundEnded', {
+          detail: {},
+        })
+      );
     };
   }
   function resetSound() {
