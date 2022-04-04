@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   const all_purpose_btn_3 = document.querySelector('#all_purpose_btn_3');
   all_purpose_btn_3.innerText = 'All leds yellow and pulsing';
   all_purpose_btn_3.addEventListener('click', function () {
-    talkCommands.ledAllColor('yellow', 2);
+    talkCommands.ledAllColor('blue', 3);
   });
 });
 
