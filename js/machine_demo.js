@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
 document.addEventListener('buttonPressed', function (event) {
   buttonDownTime = new Date().getTime();
+  console.log('button pressed');
   /*if (waiting_for_user_input) {
     dialogMachine(event.detail.button, 0);
     
@@ -44,6 +45,7 @@ document.addEventListener('buttonPressed', function (event) {
 });
 
 document.addEventListener('buttonReleased', function (event) {
+  console.log('button released');
   const buttonUpTime = new Date().getTime();
   buttonPresssedDuration = buttonUpTime - buttonDownTime;
 
@@ -98,7 +100,6 @@ function startMachine() {
   next_state = 'initialisation';
   button_press_counter = 0;
   talkFancylogger.logMessage('Machine started');
-  dialogTree.start();
   dialogMachine(); // start the machine with first state
 }
 
@@ -125,27 +126,70 @@ function dialogMachine(btn = -1, btn_state = 0) {
       talkFancylogger.logMessage('Machine is initialised and ready');
       talkFancylogger.logMessage('Press any button to continue');
       talkCommands.ledAllOff();
-      next_state = 'speak';
+      next_state = 'welcome';
       goToNextState();
       break;
 
-    case 'speak':
-      const txt = dialogTree.getText();
-      talkFancylogger.logMessage(txt);
-      next_state = 'check-btn';
+    case 'welcome':
+      talkFancylogger.logMessage(
+        'Welcome, you got two buttons, use one of them'
+      );
+      next_state = 'choose-color';
       break;
 
-    case 'check-btn':
-      if (dialogTree.getNext(btn, buttonPresssedType)) {
-        next_state = 'speak';
-      } else {
-        talkFancylogger.logMessage('THE END');
-        next_state = 'end';
+    case 'choose-color':
+      if (btn == 0) {
+        // blue
+        next_state = 'choose-blue';
+        goToNextState();
       }
+      if (btn == 1) {
+        // yellow
+        next_state = 'choose-yellow';
+        goToNextState();
+      }
+      break;
+
+    case 'choose-blue':
+      talkFancylogger.logMessage('Blue was a good choice');
+      talkFancylogger.logMessage('Press any button to continue');
+      next_state = 'can-speak';
+      break;
+
+    case 'choose-yellow':
+      talkFancylogger.logMessage('Yellow was a bad choice');
+      talkFancylogger.logMessage('Press blue to continue');
+      next_state = 'choose-color';
       goToNextState();
       break;
-    case 'end':
-      console.log('....');
+
+    case 'can-speak':
+      talkVoice.speak('I can speak, i can count. Press a button.', 1, 1, 0.8);
+      next_state = 'count-press';
+      break;
+
+    case 'count-press':
+      button_press_counter++;
+      talkVoice.speak(
+        'you pressed ' + button_press_counter + ' time',
+        1,
+        1,
+        0.8
+      );
+
+      if (button_press_counter > 5) {
+        next_state = 'toomuch';
+        goToNextState();
+      }
+      break;
+
+    case 'toomuch':
+      talkVoice.speak(
+        'You are pressing too much! I Feel very pressed',
+        1,
+        1,
+        0.8
+      );
       break;
 
     default:
@@ -168,65 +212,3 @@ function getRandomNextState(statesArray) {
   _next_state = statesArray[rand_index];
   return _next_state;
 }
-
-class dialogTreeManager {
-  // https://github.com/lazerwalker/twison
-
-  constructor(jsonUrl) {
-    // load json file
-    this.jsonUrl = jsonUrl;
-    this.dialog = {};
-    this.loadJSON();
-  }
-
-  async loadJSON() {
-    const response = await fetch(this.jsonUrl);
-    this.dialog = await response.json();
-  }
-
-  start() {
-    console.log(console.log(Object.keys(this.dialog.passages)));
-    this.next_node = this.dialog.passages['0'];
-  }
-
-  getText() {
-    this.actual_entry = this.next_node;
-    const text = this.actual_entry.text.replace(/\[\[(.*?)\]\]/g, ''); //remove links in text
-    //console.log(text);
-    return text;
-  }
-
-  getNext(userChoice, pressType) {
-    if (this.actual_entry.links === undefined) {
-      // if no links, we are at the end
-      return false;
-    }
-
-    const nrOfLinks = Object.keys(this.actual_entry.links).length;
-    let choiceStr = '';
-
-    if (userChoice == 0) choiceStr = ':)';
-    if (userChoice == 1) choiceStr = ':(';
-    if (nrOfLinks == 4) {
-      // if links with long and short press
-      choiceStr += ' ' + pressType;
-    }
-    const next = this.getNextLink(choiceStr);
-
-    this.next_node = Object.values(this.dialog.passages).find((obj) => {
-      return obj.name == next;
-    });
-
-    return true;
-  }
-
-  getNextLink(choiceStr) {
-    console.log(choiceStr);
-    const next = Object.values(this.actual_entry.links).find((obj) => {
-      return obj.name == choiceStr;
-    });
-    return next.link;
-  }
-}
-
-const dialogTree = new dialogTreeManager('json/twine.json');
