@@ -260,9 +260,11 @@ void loop()
     if (last_btn_states[i] != btn_states[i]) {
       if (btn_states[i] == 0) {
         usb_web.println("B" + String(i));
+        usb_web.flush(); // added 2023 otherwise it waits fur large buffer to send...
       }
       if (btn_states[i] == 1) {
         usb_web.println("H" + String(i));
+        usb_web.flush();
       }
       last_btn_states[i] = btn_states[i];
       delay(50);
