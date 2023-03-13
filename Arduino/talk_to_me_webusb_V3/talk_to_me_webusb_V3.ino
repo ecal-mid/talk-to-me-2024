@@ -1,5 +1,5 @@
 /*********************************************************************
-  TALK TO ME - ECAL 2022 - AB.
+  TALK TO ME - ECAL 2023 - AB.
   Serial communication via Web USB
   Some heplers functions for Buttons, Potentimeter, Leds
   All the logic is done on the Web side via javascript
