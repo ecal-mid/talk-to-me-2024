@@ -35,9 +35,9 @@ objet_son:objet créé par new Audio(), boucle: true ou false
 Exemple
 ```JavaScript
 // charger votre son au début de votre code dans 
-this.sound_chime = new Audio('audio/bell.wav');
+this.sound_bell = new Audio('audio/bell.wav');
 // lancer le son
-this.audioMachine.playAudio(this.sound_chime, false);
+this.audioMachine.playAudio(this.sound_bell, false);
 // stopper le son
 this.audioMachine.pauseSound();
 ```
