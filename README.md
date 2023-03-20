@@ -73,3 +73,17 @@ this.ledsAllChangeColor('blue', 1);
 //éteindre toutes les leds
 this.ledAllOff();
 ```
+
+### Motor (servo)
+
+**changer position**
+*this.motorMoveAngle(angle);*  
+angle: 0-180
+
+Example
+```JavaScript
+// positionner le servo moteur à 90°
+this.motorMoveAngle(90);
+// positionner le servo moteur à 0°
+this.motorMoveAngle(0);
+```
