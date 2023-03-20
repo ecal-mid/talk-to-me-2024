@@ -26,11 +26,11 @@ Exemple
 
 ### Son
 **lancer le son**  
-*talkSound.playSound(objet_son, boucle)*  
+*this.audioMachine.playAudio(objet_son, boucle)*  
 objet_son:objet créé par new Audio(), boucle: true ou false   
 
 **stopper le son**  
-*talkSound.pauseSound()*
+*this.audioMachine.pauseSound()*
 
 Exemple
 ```JavaScript
