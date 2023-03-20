@@ -11,6 +11,7 @@
   1 servo as output
 
 **********************************************************************/
+
 #include <Servo.h>
 Servo myservo;  // create servo object to control a servo
 #define SERVO_PIN 21
@@ -85,7 +86,7 @@ void setup() {
   }
   pinMode(led_pin, OUTPUT);
   digitalWrite(led_pin, LOW);
-  myservo.attach(SERVO_PIN, 540, 2700);  // attaches the servo on GIO2 to the servo object
+  myservo.attach(SERVO_PIN, 540, 2700);  // add min and max to allow full 180 sweep
 
   usb_web.setLandingPage(&landingPage);
   usb_web.setLineStateCallback(line_state_callback);
