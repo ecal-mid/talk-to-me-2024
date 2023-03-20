@@ -117,7 +117,7 @@ export default class DialogMachine extends TalkMachine {
       return;
     }
 
-    if (this.nextState != this.lastState) {
+    if (this.nextState !== this.lastState) {
       this.fancyLogger.logState(`entering State: ${this.nextState}`);
     } else {
       this.fancyLogger.logState(`staying in State: ${this.nextState}`);
@@ -129,6 +129,7 @@ export default class DialogMachine extends TalkMachine {
       );
       return;
     }
+    this.lastState = this.nextState;
 
     /**** States and Rules ****/
     switch (this.nextState) {
