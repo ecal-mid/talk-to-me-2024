@@ -5,9 +5,12 @@ import AudioMachine from './utils/AudioMachine.js';
 
 export default class TalkMachine {
   constructor() {
+    this.version = '1.2';
     this.statusDisplay = document.querySelector('#status');
     this.connectButton = document.querySelector('#connect');
     this.restartButton = document.querySelector('#restartbutton');
+    this.versionDisplay = document.querySelector('#version');
+    this.versionDisplay.textContent = 'version ' + this.version;
     this.webUsbManager = new WebUsbManager(
       this,
       this.connectButton,
