@@ -35,9 +35,9 @@ int btn_pins[] = { 15, 14, 13, 12, 11, 16, 17, 18, 19, 20 };
 int btn_states[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 int last_btn_states[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-int potentiometer_pin = A0;
-int potentiometer_value = 0;
-int potentiometer_last_value = 0;
+int analog_pin = A0;
+int analog_value = 0;
+int analog_last_value = 0;
 
 // Neo pixel
 
@@ -224,6 +224,7 @@ uint8_t splitColor(uint32_t c, char value) {
 }
 
 void loop() {
+
   if (previousMillis + (time_base + sin_modifier) <= millis()) {  // check every x iterations
     sin_modifier = random(8) * 100;
     previousMillis = millis();
@@ -250,19 +251,20 @@ void loop() {
   }
 
 
-  // READ POTENTIOMETER STATE
-  /*if (previousMillis + 200 <= millis()) { // check every x iterations
+  // READ LDR value
+  if (previousMillis + 200 <= millis()) {  // check every x iterations
     previousMillis = millis();
-    // READ POTENTIOMETER STATE
-    potentiometer_value = analogRead(potentiometer_pin);
-    potentiometer_value = map (potentiometer_value, 0, 1023, 0, 24);
-    if (potentiometer_last_value != potentiometer_value) {
-      //Serial.println(potentiometer_value);
-      potentiometer_last_value = potentiometer_value;
-      //Serial.println(potentiometer_value);
-      usb_web.println("P" + String(potentiometer_value));
+    // READ ANALOG VALUE
+    analog_value = analogRead(analog_pin);
+Serial.println(analog_value);
+    analog_value = map(analog_value, 350, 730, 0, 1);
+    
+    if (analog_last_value != analog_value) {
+      analog_last_value = analog_value;
+      Serial.println(analog_value);
+      usb_web.println("A" + String(analog_value));
     }
-    }*/
+  }
 
   // READ BUTTONS STATES
   for (int i = 0; i < nr_of_pins; i++) {
