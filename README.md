@@ -17,8 +17,8 @@ https://ecal-mid.ch/talktome/voiceTester.html
 
 **Parler**
 
-- this.speakMachine.speakText(text, [index_voix, pitch, rate])\*  
-  text:le texte, index_voix:index de la voix, pitch:0.1-2, rate 0.1-10
+_this.speakMachine.speakText(text, [index_voix, pitch, rate])_  
+text:le texte, index_voix:index de la voix, pitch:0.1-2, rate 0.1-10
 
 Exemple
 
