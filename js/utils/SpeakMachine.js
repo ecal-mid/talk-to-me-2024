@@ -41,11 +41,12 @@ export default class SpeakMachine {
     );
   }
 
-  speakText(_text, _voice = 0, _pitch = 1, _rate = 1) {
+  speakText(_text, options = [0, 1, 1]) {
+    const _voice = options[0];
+    const _pitch = options[1];
+    const _rate = options[2];
     this.fancylogger.logSpeech('Text: ' + _text);
-    console.log('Voice index: ' + _voice);
-    console.log('Pitch: ' + _pitch);
-    console.log('Rate: ' + _rate);
+    console.log('Voice index: ' + _voice, 'Pitch: ' + _pitch, 'Rate: ' + _rate);
     this.synthesisUtterance = new SpeechSynthesisUtterance(_text);
     this.synthesisUtterance.voice = this.voices[_voice];
     this.synthesisUtterance.pitch = _pitch;

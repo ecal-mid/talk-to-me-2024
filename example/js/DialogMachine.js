@@ -32,9 +32,6 @@ export default class DialogMachine extends TalkMachine {
 
   handleRestartButton() {
     console.clear();
-    //this.ledsAllOff(); // turn all leds off
-    //this.speakMachine.speakText('Hello, I am the Dialog Machine', 1);
-    //this.audioMachine.playAudio(this.sound_bell);
     this.start(); // restart the dialog
   }
 
@@ -51,12 +48,6 @@ export default class DialogMachine extends TalkMachine {
         break;
       case 4:
         this.ledsAllChangeColor('pink', 2);
-        break;
-      case 5:
-        this.motorMoveAngle(0);
-        break;
-      case 6:
-        this.motorMoveAngle(180);
         break;
 
       default:
@@ -88,6 +79,8 @@ export default class DialogMachine extends TalkMachine {
   handleUserInputError() {
     this.fancyLogger.logWarning('user input is not allowed at this time');
   }
+  // Voice presets
+  preset_voice_1 = [1, 1, 0.8]; //preset for a voice, voice index, pitch, rate
 
   start() {
     console.clear();
@@ -117,7 +110,7 @@ export default class DialogMachine extends TalkMachine {
       return;
     }
 
-    if (this.nextState != this.lastState) {
+    if (this.nextState !== this.lastState) {
       this.fancyLogger.logState(`entering State: ${this.nextState}`);
     } else {
       this.fancyLogger.logState(`staying in State: ${this.nextState}`);
@@ -129,6 +122,7 @@ export default class DialogMachine extends TalkMachine {
       );
       return;
     }
+    this.lastState = this.nextState;
 
     /**** States and Rules ****/
     switch (this.nextState) {
@@ -176,9 +170,7 @@ export default class DialogMachine extends TalkMachine {
       case 'can-speak':
         this.speakMachine.speakText(
           'I can speak, i can count. Press a button.',
-          1,
-          1,
-          0.8
+          this.preset_voice_1
         );
         this.nextState = 'count-press';
         break;
@@ -187,9 +179,7 @@ export default class DialogMachine extends TalkMachine {
         this.buttonPressCounter++;
         this.speakMachine.speakText(
           'you pressed ' + this.buttonPressCounter + ' time',
-          1,
-          1,
-          0.8
+          this.preset_voice_1
         );
 
         if (this.buttonPressCounter > 2) {
@@ -201,9 +191,7 @@ export default class DialogMachine extends TalkMachine {
       case 'toomuch':
         this.speakMachine.speakText(
           'You are pressing too much! I Feel very pressed',
-          1,
-          1,
-          0.8
+          this.preset_voice_1
         );
         this.nextState = 'enough-pressed';
         break;
@@ -211,9 +199,7 @@ export default class DialogMachine extends TalkMachine {
       case 'enough-pressed':
         this.speakMachine.speakText(
           'Enough is enough! I dont want to be pressed anymore!',
-          1,
-          1,
-          0.8
+          this.preset_voice_1
         );
         break;
 

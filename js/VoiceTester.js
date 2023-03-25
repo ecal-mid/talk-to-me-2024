@@ -70,15 +70,14 @@ export default class VoiceTester {
     }
     //console.clear();
 
-    this.speakMachine.speakText(
-      this.inputTxt.value,
+    this.speakMachine.speakText(this.inputTxt.value, [
       voiceIndex,
       this.pitch.value,
-      this.rate.value
-    );
+      this.rate.value,
+    ]);
 
     this.fancyLogger.logCode(
-      `talkVoice.speak('your text', ${voiceIndex}, ${pitch.value}, ${rate.value})`
+      `this.speakMachine.speakText('your text', [${voiceIndex}, ${pitch.value}, ${rate.value}])`
     );
   }
 }
