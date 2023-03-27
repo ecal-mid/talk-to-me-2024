@@ -19,6 +19,7 @@ export default class PatternMatcher {
       if (this.index_to_check + 1 == this.pattern.length) {
         // success
         console.log('pattern success');
+        this.isStarted = false;
         nextState = this.stateForSuccess;
       } else {
         // doing good
