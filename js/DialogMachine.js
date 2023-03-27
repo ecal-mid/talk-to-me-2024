@@ -25,7 +25,7 @@ export default class DialogMachine extends TalkMachine {
     );
     document.addEventListener('audioEnded', this.handleAudioEnded.bind(this));
     // SOUNDS
-    this.sound_bell = new Audio('audio/bell.wav');
+    this.sound_error = new Audio('audio/error_buzzer.wav');
   }
 
   /* ----- EVENT HANDLERS ------- */
@@ -78,7 +78,9 @@ export default class DialogMachine extends TalkMachine {
 
   handleUserInputError() {
     this.fancyLogger.logWarning('user input is not allowed at this time');
+    this.audioMachine.playSound(this.sound_error);
   }
+
   // Voice presets
   preset_voice_1 = [1, 1, 0.8]; //preset for a voice, voice index, pitch, rate
 
@@ -130,7 +132,7 @@ export default class DialogMachine extends TalkMachine {
         this.fancyLogger.logMessage('Machine is initialised and ready');
         this.fancyLogger.logMessage('Press any button to continue');
         this.ledsAllOff();
-        this.nextState = 'check-pattern';
+        this.nextState = 'welcome';
         this.goToNextState();
         break;
 
