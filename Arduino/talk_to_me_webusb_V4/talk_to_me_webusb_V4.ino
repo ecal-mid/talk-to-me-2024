@@ -14,7 +14,7 @@
 
 #include <Servo.h>
 Servo myservo;  // create servo object to control a servo
-#define SERVO_PIN 21
+#define SERVO_PIN 22
 
 #include "Adafruit_TinyUSB.h"
 #include <Adafruit_NeoPixel.h>
@@ -41,7 +41,7 @@ int analog_last_value = 0;
 
 // Neo pixel
 
-#define PIN 5
+#define PIN 21
 #define NUMPIXELS 10
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
