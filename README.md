@@ -77,7 +77,7 @@ this.ledChangeColor(0, 'black');
 this.ledsAllChangeColor('blue', 1);
 
 //éteindre toutes les leds
-this.ledAllOff();
+this.ledsAllOff();
 ```
 
 ### Motor (servo)
