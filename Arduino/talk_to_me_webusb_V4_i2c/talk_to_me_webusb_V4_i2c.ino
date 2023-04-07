@@ -55,6 +55,7 @@ int nr_of_pins_i2c = 16;
 
 int btn_pins[] = { 15, 14, 13, 12, 11, 16, 17, 18, 19, 20 };
 int btn_pins_i2c[] = { 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7 };
+int btn_pins_i2c_map[] = { 3, 2, 1, 6, 5, 4, 9, 8, 7, 0, 11, 12, 13, 14, 15, 16 };
 int btn_states[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 int last_btn_states[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 int btn_states_i2c[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -131,13 +132,15 @@ void setup() {
   initAllLedsPixels();
 
 
-  if (!mcp1.begin_I2C(0x20)) {
+  if (!mcp1.begin_I2C(0x21)) {
     Serial.println("Error with MCP23X08 1");
+    usb_web.println("Error with MCP23X08 1!");
     while (1)
       ;
   }
-  if (!mcp2.begin_I2C(0x21)) {
+  if (!mcp2.begin_I2C(0x20)) {
     Serial.println("Error with MCP23X08 2");
+    usb_web.println("Error with MCP23X08 2!");
     while (1)
       ;
   }
@@ -339,11 +342,11 @@ void loop() {
 
     if (last_btn_states_i2c[i] != btn_states_i2c[i]) {
       if (btn_states_i2c[i] == 0) {
-        usb_web.println("B" + String(i));
+        usb_web.println("B" + String(btn_pins_i2c_map[i]));
         usb_web.flush();  // added 2023 otherwise it waits fur large buffer to send...
       }
       if (btn_states_i2c[i] == 1) {
-        usb_web.println("H" + String(i));
+        usb_web.println("H" + String(btn_pins_i2c_map[i]));
         usb_web.flush();
       }
       last_btn_states_i2c[i] = btn_states_i2c[i];
@@ -357,5 +360,6 @@ void line_state_callback(bool connected) {
   initAllLedsPixels();
   if (connected) {
     usb_web.println("MConnected!");
+    usb_web.flush();
   }
 }
