@@ -140,7 +140,7 @@ Example
 
 
 
-export default class PatternMatcher {
+class PatternMatcher {
   constructor() {
     this.isStarted = false;
   }
