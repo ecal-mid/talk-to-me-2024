@@ -110,7 +110,7 @@ Example
     case 'check-pattern':
         if (!this.patternMatcher.isStarted) {
           console.log(
-            'we are at the biginning, press button 1 and 2 and 3 to continue'
+            'we are at the beginning, press button 1 and 2 and 3 to continue'
           );
           this.patternMatcher.start(
             [1, 2, 3],
