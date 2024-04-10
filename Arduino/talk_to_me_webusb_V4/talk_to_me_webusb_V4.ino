@@ -159,7 +159,7 @@ void ledAnimationBlink() {
 
 void ledAnimationPulseSpeak() {
   float in, out;
-  time_base = 700;
+  time_base = random(2, 5)*100;
   int time_ref = (currentMillis % time_base) + sin_modifier;
   in = map(time_ref, 0, time_base, 0, TWO_PI * 100);
   out = sin(in / 100) * 127.5 + 127.5;
