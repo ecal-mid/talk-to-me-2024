@@ -105,12 +105,12 @@ Example
 
 ```JavaScript
     // create instance
-    this.patternMatcher = new PatternMatcher();
+    this.patternMatcher = new PatternMatcher(); // add this to the constructor of the class DialogMachine
     // example state in switch case
     case 'check-pattern':
         if (!this.patternMatcher.isStarted) {
           console.log(
-            'we are at the biginning, press button 1 and 2 and 3 to continue'
+            'we are at the beginning, press button 1 and 2 and 3 to continue'
           );
           this.patternMatcher.start(
             [1, 2, 3],
@@ -128,9 +128,19 @@ Example
         }
         break;
 
+   case 'input-error':
+        this.fancyLogger.logMessage('This was not the right input, try again!');
+        this.nextState = 'check-pattern';
+        this.goToNextState();
+        break;
+
+   case 'input-success':
+        this.fancyLogger.logMessage('Congratulations, you did it');
+        break;
 
 
-export default class PatternMatcher {
+
+class PatternMatcher {
   constructor() {
     this.isStarted = false;
   }
