@@ -97,8 +97,8 @@ export default class TalkMachine {
   }
 
   dispatchButton(val, btn_state) {
-    this.handleButtonPressed(val);
     if (btn_state == 'pressed') {
+      this.handleButtonPressed(val);
       document.dispatchEvent(
         new CustomEvent('buttonPressed', {
           detail: { button: val },

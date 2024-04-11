@@ -66,11 +66,13 @@ export default class DialogMachine extends TalkMachine {
   }
 
   handleButtonPressed(button) {
+    console.log('button Pressed');
     // called when a button is pressed (arduino or simulator)
   }
 
   handleButtonReleased(button) {
     // called when a button is released (arduino or simulator)
+    console.log('button released');
     if (this.waitingForUserInput == true) {
       this.dialogFlow('released', button);
     }
