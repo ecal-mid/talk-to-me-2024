@@ -47,7 +47,7 @@ export default class DialogMachine extends TalkMachine {
         this.ledsAllChangeColor('yellow', 1);
         break;
       case 4:
-        this.ledsAllChangeColor('pink', 2);
+        this.ledChangeRGB(0, 100, 100, 100);
         break;
 
       default:

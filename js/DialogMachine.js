@@ -10,6 +10,7 @@ export default class DialogMachine extends TalkMachine {
     this.nextState = '';
     this.waitingForUserInput = true;
     this.machineStarted = false;
+    this.rgb = [0, 0, 0];
     this.init();
   }
 
@@ -41,13 +42,22 @@ export default class DialogMachine extends TalkMachine {
         this.ledsAllOff();
         break;
       case 2:
-        this.ledsAllChangeColor('red');
+        this.ledsAllChangeColor('blue');
         break;
       case 3:
         this.ledsAllChangeColor('yellow', 1);
         break;
       case 4:
         this.ledsAllChangeColor('pink', 2);
+        break;
+      case 5:
+        this.ledChangeRGB(0, 0, 255, 0);
+        this.ledChangeRGB(1, 0, 0, 255);
+        this.ledChangeRGB(2, 255, 0, 0);
+        break;
+      case 6:
+        //this.ledsAllChangeColor('red');
+        setInterval(this.ledLoop.bind(this), 100);
         break;
 
       default:
@@ -96,6 +106,18 @@ export default class DialogMachine extends TalkMachine {
 
   goToNextState() {
     this.dialogFlow();
+  }
+
+  ledLoop() {
+    const val = this.rgb[0];
+    if (val < 250) {
+      this.rgb[0] = this.rgb[1] = this.rgb[2] = val + 1;
+    } else {
+      this.rgb[0] = this.rgb[1] = this.rgb[2] = 0;
+    }
+    for (let i = 0; i < 20; i++) {
+      this.ledChangeRGB(i, this.rgb[0], this.rgb[1], this.rgb[2]);
+    }
   }
 
   dialogFlow(eventType = 'default', button = -1) {

@@ -154,6 +154,25 @@ export default class TalkMachine {
     this.sendCommandToUsb('Lx000');
   }
 
+  ledChangeRGB(led_index = 0, r = 255, g = 255, b = 255) {
+    // add leading zero to led_index if it is less than 10
+    if (led_index < 10) {
+      led_index = '0' + led_index;
+    }
+    // convert RGB to HEX
+    r = r.toString(16);
+    g = g.toString(16);
+    b = b.toString(16);
+
+    if (r.length == 1) r = '0' + r;
+    if (g.length == 1) g = '0' + g;
+    if (b.length == 1) b = '0' + b;
+
+    const hex_color = r + g + b;
+    //this.fancyLogger.logLed(led_index, hex_color, led_effect);
+    this.sendCommandToUsb('H' + led_index + hex_color);
+  }
+
   /* MOTOR */
   motorMoveAngle(angle = 0) {
     if (angle < 0) angle = 0;
