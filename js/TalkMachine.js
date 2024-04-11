@@ -5,7 +5,7 @@ import AudioMachine from './utils/AudioMachine.js';
 
 export default class TalkMachine {
   constructor() {
-    this.version = '1.3';
+    this.version = '1.4';
     this.statusDisplay = document.querySelector('#status');
     this.connectButton = document.querySelector('#connect');
     this.restartButton = document.querySelector('#restartbutton');
