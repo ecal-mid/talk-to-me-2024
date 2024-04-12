@@ -62,6 +62,10 @@ couleur: nom de la couleur (voir liste), effet 0:aucun ; 1:blink; 2:pulse
 **Éteindre toutes les led**
 _this.ledsAllOff()_
 
+**Allumer une led avec une valeur RGB**
+_this.ledChangeRGB(index, r, g, b)_  
+index: 0-50, r: 0-255, g:0-255, b:0-255
+
 Example
 
 ```JavaScript
@@ -75,6 +79,8 @@ this.ledChangeColor(0, 'yellow', 1);
 this.ledChangeColor(0, 'black');
 // allumer toutes les leds en bleu et blink
 this.ledsAllChangeColor('blue', 1);
+// allumer led avec valeur RGB
+this.ledChangeRGB(1, 255, 0, 123);
 
 //éteindre toutes les leds
 this.ledsAllOff();
