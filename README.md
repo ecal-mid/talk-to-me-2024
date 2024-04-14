@@ -59,10 +59,10 @@ index: 0-10, couleur: nom de la couleur (voir liste), effet 0:aucun ; 1:blink; 2
 _this.ledsAllChangeColor(couleur, effet)_  
 couleur: nom de la couleur (voir liste), effet 0:aucun ; 1:blink; 2:pulse
 
-**Éteindre toutes les led**
+**Éteindre toutes les led**  
 _this.ledsAllOff()_
 
-**Allumer une led avec une valeur RGB**
+**Allumer une led avec une valeur RGB**  
 _this.ledChangeRGB(index, r, g, b)_  
 index: 0-50, r: 0-255, g:0-255, b:0-255
 
